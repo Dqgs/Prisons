@@ -1,0 +1,8 @@
+name: Prisons
+version: ${project.version}
+main: com.dogs.prisons.Prisons
+api-version: 1.16
+commands:
+  Enchant:
+    description: Enchant randomly
+    usage: /<command>
