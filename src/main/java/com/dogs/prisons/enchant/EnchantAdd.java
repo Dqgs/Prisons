@@ -20,9 +20,6 @@ import java.util.Random;
 public class EnchantAdd {
 
     public void addRandomEnchant(Player player) {
-        List<String> lorea;
-        if (player.getItemInHand().getItemMeta().hasLore()) lorea = player.getItemInHand().getItemMeta().getLore();
-        else lorea = new ArrayList<>();
         Enchant enchant = (Enchant) EnchantUtils.pickRandom(Enchant.enchants.toArray());
         int successRate = new Random().nextInt(100);
         EnchantOrb orb = new EnchantOrb(1, enchant, successRate, 100 - successRate);
@@ -30,7 +27,30 @@ public class EnchantAdd {
         NBTTagCompound tag = stack.getTag() != null ? stack.getTag() : new NBTTagCompound();
         if (tag.getInt(enchant.getName()) >= orb.getEnchant().getMaxLevel()) return;
         if (orb.getEnchant().getChance() > successRate) {
-
+            ItemStack itemStack = player.getItemInHand();
+            ItemMeta meta = itemStack.getItemMeta();
+            List<String> lorea;
+            if (meta.hasLore()) lorea = meta.getLore();
+            else lorea = new ArrayList<>();
+            for (int i = 0; i < lorea.size(); i++){
+                String line = lorea.get(i);
+                if (LoreUtil.stripColor(line).startsWith(enchant.getName())){
+                    String[] number = line.split(" ");
+                    int value = EnchantUtils.romanNumeralToInt(number[1]);
+                    int value2 = Integer.parseInt(number[1]);
+                    Bukkit.broadcastMessage("Value: " + value2);
+                    lorea.set(i, enchant.getName() + " " + (value2 + 1));
+                    meta.setLore(lorea);
+                    itemStack.setItemMeta(meta);
+                    return;
+                }
+            }
+            if(lorea.contains(enchant.getName())){
+                Bukkit.broadcastMessage("Yes");
+            }
+            lorea.add(enchant.getName() + " " + orb.getLevel());
+            meta.setLore(lorea);
+            itemStack.setItemMeta(meta);
             player.playEffect(EntityEffect.VILLAGER_HAPPY);
             player.playSound(player.getLocation(), Sound.ARROW_HIT, 1, 1);
         }
