@@ -26,7 +26,7 @@ public abstract class Enchant {
     private int chance; //The chance of the enchant activating
     private boolean isActive; //True if the enchant is always active
 
-    public Enchant(String name, String description, int maxLevel, Rarity rarity, ItemSet[] itemSet, int chance, boolean isActive){
+    public Enchant(String name, String description, int maxLevel, Rarity rarity, ItemSet[] itemSet, int id, int chance, boolean isActive){
         this.name = name;
         this.description =description;
         this.maxLevel = maxLevel;

@@ -45,9 +45,6 @@ public class EnchantAdd {
                     return;
                 }
             }
-            if(lorea.contains(enchant.getName())){
-                Bukkit.broadcastMessage("Yes");
-            }
             lorea.add(enchant.getName() + " " + orb.getLevel());
             meta.setLore(lorea);
             itemStack.setItemMeta(meta);

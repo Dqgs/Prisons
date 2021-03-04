@@ -11,7 +11,7 @@ import org.bukkit.event.block.BlockBreakEvent;
 public class SuperBreaker extends Enchant implements Listener {
 
     public SuperBreaker() {
-        super("SuperBreaker", "Breaks blocks faster", 2, Rarity.EPIC, new ItemSet[]{ItemSet.PICKAXE}, 60, true);
+        super("SuperBreaker", "Breaks blocks faster", 2, Rarity.EPIC, new ItemSet[]{ItemSet.PICKAXE}, 1,60, true);
     }
 
     @Override
