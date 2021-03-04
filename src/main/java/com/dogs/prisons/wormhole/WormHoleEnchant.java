@@ -17,7 +17,8 @@ public class WormHoleEnchant implements CommandExecutor, Listener {
                 return true;
             }
             Player player = (Player) sender;
-            EnchantAdd.addRandomEnchant(player);
+            EnchantAdd enchant = new EnchantAdd();
+            enchant.addRandomEnchant(player);
         }
         return false;
     }

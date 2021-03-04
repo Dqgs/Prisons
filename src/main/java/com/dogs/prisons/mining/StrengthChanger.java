@@ -1,6 +1,8 @@
 package com.dogs.prisons.mining;
 
 import com.dogs.prisons.Prisons;
+import com.dogs.prisons.data.DataManager;
+import com.dogs.prisons.data.DataPlayer;
 import com.dogs.prisons.enchant.Enchant;
 import com.dogs.prisons.enchant.EnchantOrb;
 import net.minecraft.server.v1_8_R3.*;
@@ -80,7 +82,6 @@ public class StrengthChanger implements Listener{
                     if ((pim_h.getBoolean(handle.playerInteractManager) || pim_d.getBoolean(handle.playerInteractManager) && changedBlocks.contains(handle.world.getType((BlockPosition) pim_f.get(handle.playerInteractManager)).getBlock()))) {
                         handle.playerConnection.sendPacket(new PacketPlayOutBlockBreakAnimation(0, (BlockPosition) pim_f.get(handle.playerInteractManager), k));
                         if (k >= 10) {
-
                             handle.playerInteractManager.a((BlockPosition) pim_f.get(handle.playerInteractManager));
                         }
                         wasMining = true;
@@ -93,9 +94,6 @@ public class StrengthChanger implements Listener{
                 }
             }
         }, 0, 1));
-        EnchantOrb orb = new EnchantOrb(2, Enchant.getEnchantByName("SuperBreaker"), 100, 0);
-        player.getPlayer().getInventory().addItem(orb.getBook());
-
     }
 
     @EventHandler
@@ -109,47 +107,11 @@ public class StrengthChanger implements Listener{
         EntityPlayer handle = ((CraftPlayer) event.getPlayer()).getHandle();
         handle.playerConnection.sendPacket(new PacketPlayOutWorldEvent(2001, new BlockPosition(loc.getX(), loc.getY(), loc.getZ()), Block.getCombinedId(CraftMagicNumbers.getBlock(event.getBlock()).getBlockData()), false));
         plugin.getServer().getScheduler().runTaskLater(plugin, () -> {
-
             try {
-                event.getBlock().setType(Material.COAL_BLOCK);
                 pim_lastdig.set(handle.playerInteractManager, pim_currentdig.get(handle.playerInteractManager));
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
             }
         }, 3);
-    }
-    @EventHandler
-    public void onBlockDamage(BlockDamageEvent event){
-        ItemStack item = event.getItemInHand();
-
-    }
-
-    public void setStrengthBasedOnPickaxe(ItemStack item){
-        switch (item.getType()){
-            case WOOD_PICKAXE:
-
-                setStrength(Blocks.COAL_BLOCK, 0.6f);
-                setStrength(Blocks.COAL_ORE, 0.6f);
-
-                setStrength(Blocks.IRON_ORE, 0.6f);
-                setStrength(Blocks.IRON_BLOCK, 0.6f);
-
-                setStrength(Blocks.LAPIS_ORE, 0.7f);
-                setStrength(Blocks.LAPIS_BLOCK, 0.7f);
-
-                setStrength(Blocks.LAPIS_BLOCK, 0.7f);
-                setStrength(Blocks.LAPIS_BLOCK, 0.7f);
-
-                setStrength(Blocks.LAPIS_BLOCK, 0.7f);
-                setStrength(Blocks.LAPIS_BLOCK, 0.7f);
-
-                setStrength(Blocks.LAPIS_BLOCK, 0.7f);
-                setStrength(Blocks.LAPIS_BLOCK, 0.7f);
-
-                setStrength(Blocks.LAPIS_BLOCK, 0.7f);
-                setStrength(Blocks.LAPIS_BLOCK, 0.7f);
-
-                break;
-        }
     }
 }

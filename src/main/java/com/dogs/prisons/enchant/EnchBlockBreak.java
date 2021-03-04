@@ -14,7 +14,7 @@ public class EnchBlockBreak implements Listener {
         Player p = event.getPlayer();
         if (Enchant.getEnchants(p.getItemInHand(), p.getInventory().getBoots(), p.getInventory().getChestplate(), p.getInventory().getHelmet(), p.getInventory().getLeggings()) != null){
             for (Enchant enchant : Enchant.getEnchantsOnPlayer(p).keySet()){
-                int chance = enchant.getChance() + enchant.getChanceIncrease() * (Enchant.getEnchantsOnPlayer(p).get(enchant) -1);
+                int chance = enchant.getChance() * (Enchant.getEnchantsOnPlayer(p).get(enchant) -1);
                 if (chance >= 100){
                     enchant.playerBreakBlock(event);
                     return;

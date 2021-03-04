@@ -6,3 +6,6 @@ commands:
   Enchant:
     description: Enchant randomly
     usage: /<command>
+  Charm:
+    description: Give Energy to your pickaxe
+    usage: /<command>

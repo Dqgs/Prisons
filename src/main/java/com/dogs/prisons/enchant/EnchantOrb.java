@@ -1,7 +1,7 @@
 package com.dogs.prisons.enchant;
 
+import com.dogs.prisons.utils.EnchantUtils;
 import org.bukkit.ChatColor;
-import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -10,13 +10,12 @@ import java.util.List;
 
 public class EnchantOrb {
 
-    private ItemStack book = new ItemStack(Material.BOOK);
+    private Rarity rarity;
+    private final ItemStack book;
     private int level;
     private Enchant enchant;
     private int success;
     private int destroy;
-
-    private Rarity rarity;
 
     public EnchantOrb(int level, Enchant enchant, int success, int destroy) {
         this.level = level;
@@ -24,6 +23,7 @@ public class EnchantOrb {
         this.success = success;
         this.destroy = destroy;
         this.rarity = enchant.getRarity();
+        book = rarity.getItem();
 
         //Make the item using the following variables (Reference Image: http://prntscr.com/elt45o)
         ItemMeta meta = book.getItemMeta();

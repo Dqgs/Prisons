@@ -1,4 +1,4 @@
-package com.dogs.prisons.enchant;
+package com.dogs.prisons.utils;
 
 import org.bukkit.ChatColor;
 
@@ -8,7 +8,6 @@ import java.util.Random;
 
 public class EnchantUtils {
     public static String intToRomanNumeral(int i) {
-        //Max level is 10 so I may as well do it manually. If you (ipodtouch0218) can find a better way then go ahead :)
         switch (i) {
             case 1:
                 return "I";
@@ -34,9 +33,7 @@ public class EnchantUtils {
         return Integer.toString(i);
     }
 
-    //Converts the given roman numeral to a integer
     public static int romanNumeralToInt(String i) {
-        //Max level is 10 so I may as well do it manually. If you (ipodtouch0218) can find a better way then go ahead :)
         switch (i.toUpperCase()) {
             case "I":
                 return 1;

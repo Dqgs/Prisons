@@ -1,6 +1,9 @@
 package com.dogs.prisons.enchant;
 
+import com.dogs.prisons.utils.EnchantUtils;
+import net.minecraft.server.v1_8_R3.NBTTagCompound;
 import org.bukkit.ChatColor;
+import org.bukkit.craftbukkit.v1_8_R3.inventory.CraftItemStack;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
@@ -22,8 +25,6 @@ public abstract class Enchant {
     private String description; //What the enchant does
     private int chance; //The chance of the enchant activating
     private boolean isActive; //True if the enchant is always active
-    private boolean stackable; //If the enchant is stackable
-    private int chanceIncrease; //How much the enchantment chance increases per level
 
     public Enchant(String name, String description, int maxLevel, Rarity rarity, ItemSet[] itemSet, int chance, boolean isActive){
         this.name = name;
@@ -34,7 +35,6 @@ public abstract class Enchant {
         this.chance = chance;
         this.isActive = isActive;
 
-        //Adds the enchant to the enchants list
         enchants.add(this);
     }
 
@@ -47,7 +47,6 @@ public abstract class Enchant {
         return null;
     }
 
-    //Returns a list of all enchants on the item given
     public static Map<Enchant, Integer> getEnchants(ItemStack... items) {
         Map<Enchant, Integer> enchants = new HashMap<>();
         for (ItemStack item : items) {
@@ -80,8 +79,7 @@ public abstract class Enchant {
         return getEnchants(player.getItemInHand(), player.getInventory().getHelmet(), player.getInventory().getChestplate(), player.getInventory().getLeggings(), player.getInventory().getBoots());
     }
 
-    public void playerBreakBlock(BlockBreakEvent e) {
-    }
+    public void playerBreakBlock(BlockBreakEvent e) {}
 
     public String getName() {
         return name;
@@ -109,16 +107,6 @@ public abstract class Enchant {
 
     public boolean isActive() {
         return isActive;
-    }
-
-    public boolean isStackable() {
-        return stackable;
-    }
-
-
-    //Setters
-    public int getChanceIncrease() {
-        return chanceIncrease;
     }
 
     public void setActive(boolean active) {

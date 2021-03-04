@@ -1,4 +1,5 @@
 package com.dogs.prisons.mining;
 
-public class MiningTask {
+public class BlockXp {
+
 }
