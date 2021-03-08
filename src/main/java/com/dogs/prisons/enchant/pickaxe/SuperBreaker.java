@@ -20,4 +20,9 @@ public class SuperBreaker extends Enchant implements Listener {
         int level = Enchant.getHeldEnchants(player).get(this);
         Bukkit.broadcastMessage("WORKED POGGIES");
     }
+
+    @Override
+    public int compareTo(Enchant o) {
+        return this.getId() - o.getId();
+    }
 }

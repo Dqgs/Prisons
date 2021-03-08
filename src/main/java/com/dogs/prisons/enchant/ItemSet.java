@@ -3,6 +3,7 @@ package com.dogs.prisons.enchant;
 import org.bukkit.Material;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public enum ItemSet {
@@ -20,13 +21,10 @@ public enum ItemSet {
     ALL_ARMOUR(ItemSet.HELMET, ItemSet.CHESTPLATE, ItemSet.LEGGINGS, ItemSet.BOOTS),
     ALL_WEAPON(ItemSet.SWORD, ItemSet.AXE);
 
-
     private List<Material> items = new ArrayList<>();
 
     ItemSet(Material... itemss) {
-        for (Material item : itemss) {
-            items.add(item);
-        }
+        Collections.addAll(items, itemss);
     }
 
     ItemSet(ItemSet... it) {

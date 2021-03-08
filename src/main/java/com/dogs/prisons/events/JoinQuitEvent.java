@@ -1,24 +1,28 @@
 package com.dogs.prisons.events;
 
-import com.dogs.prisons.charm.Pickaxe;
-import org.bukkit.Material;
+import com.dogs.prisons.Prisons;
+import com.dogs.prisons.filemanager.PlayerData;
+import com.dogs.prisons.shard.Shard;
+import com.dogs.prisons.shard.ShardRarity;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
-import org.bukkit.inventory.ItemStack;
 
 public class JoinQuitEvent implements Listener {
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGHEST)
     public void onJoin(PlayerJoinEvent event){
-        ItemStack itemStack = new ItemStack(Material.WOOD_PICKAXE);
-        Pickaxe pickaxe = new Pickaxe(itemStack);
-        event.getPlayer().getInventory().addItem(pickaxe.itemStack);
+        Prisons.getInstance().getDataManager().add(event.getPlayer());
+        PlayerData.loadPlayer(event.getPlayer());
+        Shard shard = new Shard(ShardRarity.LEGENDARY);
+        event.getPlayer().getInventory().addItem(shard.item);
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGHEST)
     public void onLeave(PlayerQuitEvent event){
-
+        PlayerData.savePlayer(event.getPlayer());
+        Prisons.getInstance().getDataManager().remove(event.getPlayer());
     }
 }

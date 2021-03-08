@@ -1,11 +1,7 @@
 name: Prisons
 version: ${project.version}
 main: com.dogs.prisons.Prisons
-api-version: 1.16
+api-version: 1.8.8
 commands:
   Enchant:
-    description: Enchant randomly
-    usage: /<command>
   Charm:
-    description: Give Energy to your pickaxe
-    usage: /<command>

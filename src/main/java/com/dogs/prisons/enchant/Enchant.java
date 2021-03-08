@@ -1,30 +1,26 @@
 package com.dogs.prisons.enchant;
 
 import com.dogs.prisons.utils.EnchantUtils;
-import net.minecraft.server.v1_8_R3.NBTTagCompound;
 import org.bukkit.ChatColor;
-import org.bukkit.craftbukkit.v1_8_R3.inventory.CraftItemStack;
+import org.bukkit.craftbukkit.libs.org.ibex.nestedvm.util.Sort;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
-public abstract class Enchant {
+public abstract class Enchant implements Comparable<Enchant> {
 
+    public static final Set<Enchant> ENCHANTS = new HashSet<>();
 
-    public static List<Enchant> enchants = new ArrayList<>();
-
-    private String name; //Enchants name
-    private int maxLevel; //Enchant max level
-    private Rarity rarity; //The enchants rarity
-    private ItemSet[] itemSet; //Items the enchant can be applied to
-    private String description; //What the enchant does
-    private int chance; //The chance of the enchant activating
-    private boolean isActive; //True if the enchant is always active
+    private String name;
+    private int maxLevel;
+    private Rarity rarity;
+    private ItemSet[] itemSet;
+    private String description;
+    private int id;
+    private int chance;
+    private boolean isActive;
 
     public Enchant(String name, String description, int maxLevel, Rarity rarity, ItemSet[] itemSet, int id, int chance, boolean isActive){
         this.name = name;
@@ -32,14 +28,15 @@ public abstract class Enchant {
         this.maxLevel = maxLevel;
         this.rarity = rarity;
         this.itemSet = itemSet;
+        this.id = id;
         this.chance = chance;
         this.isActive = isActive;
 
-        enchants.add(this);
+        ENCHANTS.add(this);
     }
 
     public static Enchant getEnchantByName(String name) {
-        for (Enchant enchant : enchants) {
+        for (Enchant enchant : ENCHANTS) {
             if (enchant.getName().equalsIgnoreCase(name)) {
                 return enchant;
             }
@@ -57,7 +54,7 @@ public abstract class Enchant {
                 for (String temp : lore) {
                     String loreLine = ChatColor.stripColor(temp).split(" ")[0];
                     if (getEnchantByName(loreLine) != null) {
-                        enchants.put(getEnchantByName(loreLine), EnchantUtils.romanNumeralToInt(ChatColor.stripColor(temp).split(" ")[1]));
+                        enchants.put(getEnchantByName(loreLine), Integer.parseInt(ChatColor.stripColor(temp).split(" ")[1]));
                     }
                 }
             }
@@ -99,6 +96,10 @@ public abstract class Enchant {
 
     public String getDescription() {
         return description;
+    }
+
+    public int getId(){
+        return id;
     }
 
     public int getChance() {
