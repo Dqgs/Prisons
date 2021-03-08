@@ -2,6 +2,7 @@ package com.dogs.prisons;
 
 import com.dogs.prisons.charm.CharmChecker;
 import com.dogs.prisons.commands.admin.ShardGive;
+import com.dogs.prisons.commands.player.Feed;
 import com.dogs.prisons.data.DataManager;
 import com.dogs.prisons.enchant.EnchBlockBreak;
 import com.dogs.prisons.enchant.pickaxe.SuperBreaker;
@@ -78,6 +79,7 @@ public final class Prisons extends JavaPlugin {
         getCommand("Enchant").setExecutor(new WormHoleEnchant());
         getCommand("charm").setExecutor(new CharmChecker());
         getCommand("shard").setExecutor(new ShardGive());
+        getCommand("feed").setExecutor(new Feed());
     }
 
     public static Prisons getInstance() {
