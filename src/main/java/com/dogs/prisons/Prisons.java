@@ -1,6 +1,7 @@
 package com.dogs.prisons;
 
 import com.dogs.prisons.charm.CharmChecker;
+import com.dogs.prisons.commands.admin.ShardGive;
 import com.dogs.prisons.data.DataManager;
 import com.dogs.prisons.enchant.EnchBlockBreak;
 import com.dogs.prisons.enchant.pickaxe.SuperBreaker;
@@ -11,6 +12,7 @@ import com.dogs.prisons.filemanager.LevelCost;
 import com.dogs.prisons.filemanager.PlayerData;
 import com.dogs.prisons.mining.BlockBreak;
 import com.dogs.prisons.mining.StrengthChanger;
+import com.dogs.prisons.shard.Shard;
 import com.dogs.prisons.shard.ShardOpen;
 import com.dogs.prisons.wormhole.WormHoleEnchant;
 import net.minecraft.server.v1_8_R3.Blocks;
@@ -75,6 +77,7 @@ public final class Prisons extends JavaPlugin {
     public void commands(){
         getCommand("Enchant").setExecutor(new WormHoleEnchant());
         getCommand("charm").setExecutor(new CharmChecker());
+        getCommand("shard").setExecutor(new ShardGive());
     }
 
     public static Prisons getInstance() {

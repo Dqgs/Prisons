@@ -11,7 +11,7 @@ public class Shard {
     public ItemStack item;
     ShardRarity shardRarity;
 
-    public Shard(ItemStack itemStack){
+    public Shard(ItemStack itemStack) {
         this.item = itemStack;
         net.minecraft.server.v1_8_R3.ItemStack stack = CraftItemStack.asNMSCopy(itemStack);
         NBTTagCompound tag = stack.getTag() != null ? stack.getTag() : new NBTTagCompound();
