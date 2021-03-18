@@ -1,5 +1,6 @@
 package com.dogs.prisons.data;
 
+import com.dogs.prisons.Prisons;
 import com.dogs.prisons.filemanager.LevelCost;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -8,8 +9,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DataPlayer {
+
     public Player player;
     private int level, xp;
+    private double balance;
 
     public DataPlayer(Player player){
         this.player = player;
@@ -65,5 +68,10 @@ public class DataPlayer {
         milestones.add(95);
         milestones.add(100);
         return milestones.contains(getLevel());
+    }
+
+    public double getBalance() {
+        this.balance = Prisons.getEconomy().getBalance(player);
+        return balance;
     }
 }

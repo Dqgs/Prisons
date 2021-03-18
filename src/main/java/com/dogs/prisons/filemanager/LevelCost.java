@@ -1,11 +1,8 @@
 package com.dogs.prisons.filemanager;
 
-import com.dogs.prisons.Prisons;
-import com.dogs.prisons.data.DataPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.entity.Player;
 
 import java.io.File;
 import java.io.IOException;

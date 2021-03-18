@@ -1,9 +1,9 @@
 package com.dogs.prisons.events;
 
 import com.dogs.prisons.Prisons;
+import com.dogs.prisons.data.DataPlayer;
 import com.dogs.prisons.filemanager.PlayerData;
-import com.dogs.prisons.shard.Shard;
-import com.dogs.prisons.shard.ShardRarity;
+import com.dogs.prisons.scoreboard.StatsScoreBoard;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -16,8 +16,8 @@ public class JoinQuitEvent implements Listener {
     public void onJoin(PlayerJoinEvent event){
         Prisons.getInstance().getDataManager().add(event.getPlayer());
         PlayerData.loadPlayer(event.getPlayer());
-        Shard shard = new Shard(ShardRarity.LEGENDARY);
-        event.getPlayer().getInventory().addItem(shard.item);
+        DataPlayer data = Prisons.getInstance().getDataManager().getDataPlayer(event.getPlayer());;
+        StatsScoreBoard scoreBoard = new StatsScoreBoard(data);
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)
@@ -25,4 +25,5 @@ public class JoinQuitEvent implements Listener {
         PlayerData.savePlayer(event.getPlayer());
         Prisons.getInstance().getDataManager().remove(event.getPlayer());
     }
+
 }
