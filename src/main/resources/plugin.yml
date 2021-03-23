@@ -6,5 +6,6 @@ commands:
   Enchant:
   Charm:
   Shard:
+  extract:
   feed:
     aliases: [eat]

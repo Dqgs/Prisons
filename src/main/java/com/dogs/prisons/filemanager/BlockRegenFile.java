@@ -37,9 +37,8 @@ public class BlockRegenFile {
     public static void save() {
         try {
             datafile.save(file);
-            System.out.println("[Prisons] BlockRegen.yml Has been Saved");
         } catch (IOException e) {
-            System.out.println("[Prisons] Couldn't save BlockRegen.yml");
+            System.out.println("[Prisons] Couldn't save BlockRegen.yml \n" + e);
         }
     }
 
@@ -50,23 +49,34 @@ public class BlockRegenFile {
                 block.getType().toString());
         BlockRegenFile.save();
     }
+    public static void removeBlock(Block block){
+        BlockRegenFile.get().set("X_Y_Z." + block.getLocation().getBlockX() + "_" +
+                        block.getLocation().getBlockY() + "_" +
+                        block.getLocation().getBlockZ() + ".blockType",
+                null);
+        BlockRegenFile.get().set("X_Y_Z." + block.getLocation().getBlockX() + "_" +
+                        block.getLocation().getBlockY() + "_" +
+                        block.getLocation().getBlockZ(),
+                null);
+        BlockRegenFile.save();
+    }
 
     public static HashMap<Location, Material> getMissingBlocks() {
         try {
             ConfigurationSection locationSection = BlockRegenFile.get().getConfigurationSection("X_Y_Z");
             HashMap<Location, Material> list = new HashMap<>();
-            for (String lKey : locationSection.getKeys(false)) {
-                locationSection.get(lKey);
-                String[] locationData = lKey.split("_");
-                double x = Double.parseDouble(locationData[0]);
-                double y = Double.parseDouble(locationData[1]);
-                double z = Double.parseDouble(locationData[2]);
+            if (locationSection != null) {
+                for (String lKey : locationSection.getKeys(false)) {
+                    locationSection.get(lKey);
+                    String[] locationData = lKey.split("_");
+                    double x = Double.parseDouble(locationData[0]);
+                    double y = Double.parseDouble(locationData[1]);
+                    double z = Double.parseDouble(locationData[2]);
 
-
-                Material material = Material.getMaterial(BlockRegenFile.get().getString("X_Y_Z." + lKey + ".blockType"));
-                Location location = new Location(Bukkit.getWorld("world"), x, y, z);
-                Bukkit.broadcastMessage(material + "    " + location);
-                list.put(location, material);
+                    Material material = Material.getMaterial(BlockRegenFile.get().getString("X_Y_Z." + lKey + ".blockType"));
+                    Location location = new Location(Bukkit.getWorld("world"), x, y, z);
+                    list.put(location, material);
+                }
             }
             return list;
         } catch (NumberFormatException ex) {

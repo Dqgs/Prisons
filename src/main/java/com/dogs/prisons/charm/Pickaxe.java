@@ -76,13 +76,14 @@ public class Pickaxe {
         NBTTagCompound tag = stack.getTag() != null ? stack.getTag() : new NBTTagCompound();
         tag.setInt("charm", charm);
         stack.setTag(tag);
+        itemStack.setType(CraftItemStack.asCraftMirror(stack).getType());
+        this.itemStack = CraftItemStack.asCraftMirror(stack);
         this.charm = charm;
     }
 
     public int getCharm(){
         net.minecraft.server.v1_8_R3.ItemStack stack = CraftItemStack.asNMSCopy(itemStack);
         NBTTagCompound tag = stack.getTag() != null ? stack.getTag() : new NBTTagCompound();
-        tag.getInt("charm");
         return tag.getInt("charm");
     }
 
@@ -91,6 +92,7 @@ public class Pickaxe {
         NBTTagCompound tag = stack.getTag() != null ? stack.getTag() : new NBTTagCompound();
         tag.setInt("charmMax", charmMax);
         stack.setTag(tag);
+        this.itemStack = CraftItemStack.asCraftMirror(stack);
         this.charmMax = charmMax;
     }
 

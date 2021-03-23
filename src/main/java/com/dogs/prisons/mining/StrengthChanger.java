@@ -1,23 +1,16 @@
 package com.dogs.prisons.mining;
 
 import com.dogs.prisons.Prisons;
-import com.dogs.prisons.data.DataManager;
-import com.dogs.prisons.data.DataPlayer;
-import com.dogs.prisons.enchant.Enchant;
-import com.dogs.prisons.enchant.EnchantOrb;
 import net.minecraft.server.v1_8_R3.*;
 import org.bukkit.Location;
-import org.bukkit.Material;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.craftbukkit.v1_8_R3.util.CraftMagicNumbers;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
-import org.bukkit.event.block.BlockDamageEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitTask;
 
 import java.lang.reflect.Field;

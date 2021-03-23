@@ -5,6 +5,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
+import org.bukkit.permissions.Permission;
 
 public class Feed implements CommandExecutor, Listener {
     @Override
@@ -15,27 +16,24 @@ public class Feed implements CommandExecutor, Listener {
                 return true;
             }
             Player player = (Player) sender;
-            if (player.hasPermission("prisons.rank.1")){
-                player.setFoodLevel(20);
-                player.setSaturation(10);
-                player.sendMessage("You have been fed!");
-            } else if (player.hasPermission("prisons.rank.2")){
-                player.setFoodLevel(20);
-                player.setSaturation(20);
-                player.sendMessage("You have been fed!");
+            int saturation = 0;
+            if (player.hasPermission("prisons.rank.5")){
+                saturation = 45;
+            } else if (player.hasPermission("prisons.rank.4")){
+                saturation = 35;
             } else if (player.hasPermission("prisons.rank.3")){
-                player.setFoodLevel(20);
-                player.setSaturation(25);
-                player.sendMessage("You have been fed!");
-            }  else if (player.hasPermission("prisons.rank.4")){
-                player.setFoodLevel(20);
-                player.setSaturation(35);
-                player.sendMessage("You have been fed!");
-            }  else if (player.hasPermission("prisons.rank.5")){
-                player.setFoodLevel(20);
-                player.setSaturation(45);
-                player.sendMessage("You have been fed!");
+                saturation = 25;
+            }  else if (player.hasPermission("prisons.rank.2")){
+                saturation = 20;
+            }  else if (player.hasPermission("prisons.rank.1")){
+                saturation = 10;
+            } else {
+                player.sendMessage("You need to have a rank for this");
+                return false;
             }
+            player.setFoodLevel(20);
+            player.sendMessage("You have been fed for " + saturation + "!");
+            return true;
         }
         return false;
     }

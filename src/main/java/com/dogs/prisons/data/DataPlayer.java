@@ -2,6 +2,7 @@ package com.dogs.prisons.data;
 
 import com.dogs.prisons.Prisons;
 import com.dogs.prisons.filemanager.LevelCost;
+import com.dogs.prisons.scoreboard.BaseScoreBoard;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -13,6 +14,7 @@ public class DataPlayer {
     public Player player;
     private int level, xp;
     private double balance;
+    public BaseScoreBoard statsScoreBoard;
 
     public DataPlayer(Player player){
         this.player = player;
@@ -22,9 +24,9 @@ public class DataPlayer {
         return level;
     }
 
-    public void setLevel(int level) {
+    public void setLevel(int level, boolean announce) {
         this.level = level;
-        if (milestone()){
+        if (milestone() && announce){
             Bukkit.broadcastMessage(player.getDisplayName() + " has leveled up to " + getLevel());
         }
     }
@@ -40,8 +42,8 @@ public class DataPlayer {
 
     public void levelUp(){
         int levelCost = LevelCost.getLevelCost(getLevel());
-        if (getXp() > levelCost){
-            setLevel(getLevel()+1);
+        if (getXp() > levelCost && LevelCost.getMaxLevel() >= getLevel()){
+            setLevel(getLevel()+1, true);
         }
     }
 
