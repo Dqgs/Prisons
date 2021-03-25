@@ -126,6 +126,7 @@ public final class Prisons extends JavaPlugin {
         StrengthChanger.setStrength(Blocks.DIAMOND_ORE, 22f);
         StrengthChanger.setStrength(Blocks.EMERALD_ORE, 25f);
     }
+
     public void updateScoreBoard(){
         new BukkitRunnable(){
             @Override
