@@ -107,6 +107,7 @@ public final class Prisons extends JavaPlugin {
         server.registerEvents(new BlockBreakPickaxe(), this);
         server.registerEvents(new ItemCraft(), this);
         server.registerEvents(new MobSpawn(), this);
+        server.registerEvents(new InventoryMove(), this);
     }
 
     public void commands(){
@@ -134,10 +135,9 @@ public final class Prisons extends JavaPlugin {
                 for (Player player : Bukkit.getOnlinePlayers()){
                     DataPlayer data = dataManager.getDataPlayer(player);
                     StatsScoreBoard scoreBoard = new StatsScoreBoard(data);
-                    scoreBoard.updateFullScoreBoard();
                 }
             }
-        }.runTaskTimer(this, 20, 20);
+        }.runTaskTimer(this, 5, 5);
     }
 
     public static Prisons getInstance() {

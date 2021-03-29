@@ -2,6 +2,7 @@ package com.dogs.prisons.scoreboard;
 
 import com.dogs.prisons.charm.Pickaxe;
 import com.dogs.prisons.data.DataPlayer;
+import com.dogs.prisons.enchant.ItemSet;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -60,30 +61,7 @@ public class StatsScoreBoard {
         this.baseScoreBoard.updateScoreboard();
     }
 
-    private void createScoreBoards() {
-        Pickaxe pickaxe = null;
-        if (data.player.getItemInHand() != null && data.player.getItemInHand().getType() != Material.AIR) {
-            pickaxe = new Pickaxe(data.player.getItemInHand());
-            this.level = new BaseScoreBoard.Track("level", ChatColor.GRAY + "/", 0,
-                    "Xp:" + data.getXp(), " level:" + data.getLevel());
-
-            this.money = new BaseScoreBoard.Track("cash", ChatColor.GREEN + "$", 1,
-                    "", "" + data.getBalance());
-
-            if (pickaxe != null) {
-                this.charm = new BaseScoreBoard.Track("charm", ChatColor.GRAY + " / ", 5,
-                        "Charm: " + pickaxe.getCharm(), "" + pickaxe.getCharmMax());
-                this.baseScoreBoard = new BaseScoreBoard(ChatColor.GOLD + " " + ChatColor.BOLD + "Player level", DisplaySlot.SIDEBAR,
-                        level, money, charm);
-            } else
-                this.baseScoreBoard = new BaseScoreBoard(ChatColor.GOLD + " " + ChatColor.BOLD + "Player level", DisplaySlot.SIDEBAR,
-                        level, money);
-            data.player.setScoreboard(this.baseScoreBoard.getScoreboard());
-            this.scoreboard = this.baseScoreBoard.getScoreboard();
-        }
-    }
-
-    private void createScoreBoard(){
+    private void createScoreBoard() {
         Pickaxe pickaxe = null;
         ItemStack hand = data.player.getItemInHand();
         this.level = new BaseScoreBoard.Track("level", ChatColor.GRAY + "/", 0,
@@ -91,19 +69,16 @@ public class StatsScoreBoard {
 
         this.money = new BaseScoreBoard.Track("cash", ChatColor.GREEN + "$", 1,
                 "", "" + data.getBalance());
-        if (data.player.getItemInHand().getType() != Material.AIR){
-            if (hand != null) {
-                pickaxe = new Pickaxe(hand);
-            }
-            if (pickaxe != null){
-                this.charm = new BaseScoreBoard.Track("charm", ChatColor.GRAY + " / ", 5,
-                        "Charm: " + pickaxe.getCharm(), "" + pickaxe.getCharmMax());
-                this.baseScoreBoard = new BaseScoreBoard(ChatColor.GOLD + " " + ChatColor.BOLD + "Player level", DisplaySlot.SIDEBAR,
-                        level, money, charm);
-            }
-        } else
+        if (data.player.getItemInHand().getType() != Material.AIR
+                && ItemSet.PICKAXE.getItems().contains(hand.getType())) {
+            pickaxe = new Pickaxe(hand);
+            this.charm = new BaseScoreBoard.Track("charm", ChatColor.GRAY + " / ", 5,
+                    "Charm: " + pickaxe.getCharm(), "" + pickaxe.getCharmMax());
             this.baseScoreBoard = new BaseScoreBoard(ChatColor.GOLD + " " + ChatColor.BOLD + "Player level", DisplaySlot.SIDEBAR,
-                    level, money);
+                    level, money, charm);
+        } else
+        this.baseScoreBoard = new BaseScoreBoard(ChatColor.GOLD + " " + ChatColor.BOLD + "Player level", DisplaySlot.SIDEBAR,
+                level, money);
         data.player.setScoreboard(this.baseScoreBoard.getScoreboard());
         this.scoreboard = this.baseScoreBoard.getScoreboard();
     }
